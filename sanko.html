@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="./js/socket.io.js"></script>
+    <script src="./js/aframe.min.js"></script>
+    <script src="./js/Tween.min.js"></script>
+    <script src="./js/aframe-obj-loader-component.min.js"></script>
+    <script src="./js/main.js"></script>
+
+</head>
+<body>
+
+<a-scene id="myScene">
+    <!--stage-->
+    <a-plane id='myStage' rotation="-90 0 0" width="16" height="16" color="#242E12"></a-plane>
+
+    <a-sky color="#260045"></a-sky>
+
+    <!-- さまよいおばけ -->
+    <a-entity obj-loader="src: url(./model/obake/obake3d.obj);
+                      mtl: url(./model/obake/obake3d.mtl);"
+              scale="0.1 0.1 0.1"
+              position="0 0.5 0.0">
+        <a-animation
+                dur = "5000"
+                attribute="position"
+                from="-8.0 0.3 0.0"
+                to="8.0 0.3 0.0"
+                direction="alternate-reverse"
+                repeat="indefinite"
+                easing="ease-out">
+        </a-animation>
+
+        <a-animation
+                dur = "5000"
+                attribute="rotation"
+                from="0 0 0"
+                to="0 360 0"
+                repeat="indefinite"
+                easing="linear">
+        </a-animation>
+    </a-entity>
+
+    <!-- さまよいおばけ -->
+    <a-entity obj-loader="src: url(./model/obake/obake3d.obj);
+                      mtl: url(./model/obake/obake3d.mtl);"
+              scale="0.1 0.1 0.1"
+              position="0 0.5 0.0">
+        <a-animation
+                dur = "3000"
+                attribute="position"
+                from="0.0 0.3 -8.0"
+                to="0.0 0.3 8.0"
+                direction="alternate-reverse"
+                repeat="indefinite"
+                easing="ease-out">
+        </a-animation>
+    </a-entity>
+
+    <!-- ゴールおばけ -->
+    <a-entity obj-loader="src: url(./model/obake/obake3d.obj);
+                      mtl: url(./model/obake/obake3d.mtl);"
+              scale="0.1 0.1 0.1"
+              position="7.5 0.5 7.5">
+        <a-animation
+            dur = "200"
+            attribute="position"
+            from="7.5 0.25 7.5"
+            to="7.5 0.35 7.5"
+            direction="alternate-reverse"
+            repeat="indefinite"
+            easing="ease-out">
+        </a-animation>
+
+        <a-animation
+                dur = "1000"
+                attribute="rotation"
+                from="0 180 0"
+                to="0 270 0"
+                direction="alternate-reverse"
+                repeat="indefinite"
+                easing="linear">
+        </a-animation>
+    </a-entity>
+
+
+    <a-camera id="myCamera"
+              position="-7.5 -1 -7.5"
+              rotation="0 225 0"
+              raycaster
+              crawling-cursor="target: #cursor">
+        <a-cursor></a-cursor>
+    </a-camera>
+
+    
+    <!-- MEMO: うえから -->
+    <!--<a-camera id="myCamera"-->
+              <!--position="0 10 0"-->
+              <!--rotation="-90 0 0"-->
+              <!--raycaster-->
+              <!--crawling-cursor="target: #cursor">-->
+        <!--<a-cursor></a-cursor>-->
+    <!--</a-camera>-->
+
+    <a-box position="8.5 1.5 0" depth="18" height="3" color="#222222"></a-box>
+    <a-box position="-8.5 1.5 0" depth="18" height="3" color="#222222"></a-box>
+    <a-box position="0 1.5 8.5" width="16" height="3" color="#222222"></a-box>
+    <a-box position="0 1.5 -8.5" width="16" height="3" color="#222222"></a-box>
+</a-scene>
+
+<script>
+    var randArr = [];
+    for (var x = 0; x <16; x++) {
+        var row = [];
+        for (var z = 0; z < 16; z++) {
+            var randBool = randomNumber = Math.random() >= 0.8;
+            row.push(randBool);
+        }
+        randArr.push(row);
+    }
+    var scene = document.getElementById('myScene');
+    var stage = document.getElementById('myStage');
+
+    clearBoxes(scene, stage);
+    genBoxes(scene, stage, randArr);
+
+//    var obk = genObakeNode('0 0.5 0.0', '0 0 0', '0.1 0.1 0.1', '500');
+//    console.log(obk);
+//    scene.appendChild(obk);
+</script>
+</body>
+</html>
