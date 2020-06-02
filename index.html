@@ -22,7 +22,8 @@ https://opensource.org/licenses/mit-license.php
     <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/aframe-environment-component@2.0.0/dist/aframe-environment-component.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.0/dist/aframe-extras.min.js"></script>
-
+<!--physicsは頭で読むとエラーになるが下げると壁突き抜けるのでひとまず-->
+    <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v4.0.1/dist/aframe-physics-system.min.js"></script>
    
 <style>
 .fade{
@@ -148,7 +149,7 @@ render();
 
 <body class="a-body">
 
-<div id="back" style='position: fixed; top: 85%; width:100%;text-align: center; z-index: 1;'>
+<div id="back" style='position: fixed; top: 85%; width:100%;text-align: center; z-index: 100;'>
     <button style="width:10vw;height:8vh">
         back
     </button>
@@ -169,7 +170,7 @@ render();
 <!--radius超重要-->
 <!--gravity:0にすれば、position.yの位置から落ちない-->
 <a-entity id="rig" movement-controls="speed:0.05" kinematic-body="radius: 0.5" position="0 0.8 0" >
-  <a-entity camera id="camera" look-controls="pointerLockEnabled: true" >
+  <a-entity camera id="camera" look-controls="pointerLockEnabled: true">
 
     <a-entity cursor="fuse:true;fuse-timeout:500;" position="0 0 -1"
               geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
@@ -278,6 +279,8 @@ static-body cursor-listener></a-entity>
 
 <script>
 
+
+
 var inputData=[
                [1,1,1,1,1,1,1,1,1],[0,0,1,0,0,1,1,0,1],[1,0,1,1,0,0,0,0,1],[1,0,0,0,1,1,0,1,1],
                [1,1,1,0,1,1,0,0,0],[1,0,1,0,0,1,0,1,1],[1,0,1,1,0,1,0,0,1],[1,0,0,0,0,0,0,1,1],
@@ -324,20 +327,32 @@ function genBoxNode(p, r, c) {
     return boxNode;
 }
 
-  var speed = -0.01;
+
+
+/*
+
+document.getElementById("back").addEventListener("mousedown", (e)=>
+{
+document.dispatchEvent( new KeyboardEvent( "keydown",{key: 40 })) ;
+},false);
+*/
+
+
+var speed;
+var camera = document.getElementById('camera');
+var position = camera.getAttribute('position');
+var rotation = camera.getAttribute('rotation');
+
+
 
 function movePlayer()
 {
-var isIntersect = false;
-
-    var camera = document.getElementById('camera');
-
-        var position = camera.getAttribute('position');
-        var rotation = camera.getAttribute('rotation');
+ position = camera.getAttribute('position');
+    rotation = camera.getAttribute('rotation');
 
        position.x += -Math.cos((rotation.y - 90) * Math.PI / 180) * speed;
        position.z += Math.sin((rotation.y - 90) * Math.PI / 180) * speed;
-        camera.setAttribute('position', position);
+       camera.setAttribute('position', position);
 }
 
 
@@ -349,23 +364,21 @@ function render()
 
 
 
-
-
-document.getElementById("back").addEventListener("mousedown", (e)=> 
+document.getElementById("back").addEventListener("mousedown", (e)=>
 {
 speed = -0.01;
 render();
+console.log(camera.getAttribute('position'));
 },false);
 
 
 
-
-document.getElementById("back").addEventListener("mouseup", (e)=> {
-
+document.getElementById("back").addEventListener("mouseup", (e)=>
+{
   speed = 0;
-  cancelAnimationFrame(render);
+  //cancelAnimationFrame(render);
   console.log("ok")
-
+  console.log(camera.getAttribute('position'));
 },false);
 
 
@@ -402,7 +415,6 @@ render();
 </script>
 
 </a-scene>
-<!--physicsは頭で読むとエラーになるのでここで-->
-    <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v4.0.1/dist/aframe-physics-system.min.js"></script>
+
 
 </body></html>
