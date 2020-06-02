@@ -339,20 +339,20 @@ document.dispatchEvent( new KeyboardEvent( "keydown",{key: 40 })) ;
 
 
 var speed;
-var camera = document.getElementById('camera');
-var position = camera.getAttribute('position');
-var rotation = camera.getAttribute('rotation');
+var rig = document.getElementById('rig');
+var position = rig.getAttribute('position');
+var rotation = rig.getAttribute('rotation');
 
 
 
 function movePlayer()
 {
- position = camera.getAttribute('position');
-    rotation = camera.getAttribute('rotation');
+ position = rig.getAttribute('position');
+    rotation = rig.getAttribute('rotation');
 
        position.x += -Math.cos((rotation.y - 90) * Math.PI / 180) * speed;
        position.z += Math.sin((rotation.y - 90) * Math.PI / 180) * speed;
-       camera.setAttribute('position', position);
+       rig.setAttribute('position', position);
 }
 
 
@@ -368,7 +368,7 @@ document.getElementById("back").addEventListener("mousedown", (e)=>
 {
 speed = -0.01;
 render();
-console.log(camera.getAttribute('position'));
+console.log(rig.getAttribute('position'));
 },false);
 
 
@@ -378,7 +378,7 @@ document.getElementById("back").addEventListener("mouseup", (e)=>
   speed = 0;
   //cancelAnimationFrame(render);
   console.log("ok")
-  console.log(camera.getAttribute('position'));
+  console.log(rig.getAttribute('position'));
 },false);
 
 
