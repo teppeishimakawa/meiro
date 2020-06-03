@@ -24,45 +24,30 @@ https://opensource.org/licenses/mit-license.php
     <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.0/dist/aframe-extras.min.js"></script>
 <!--physicsは頭で読むとエラーになるが下げると壁突き抜けるのでひとまず-->
     <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v4.0.1/dist/aframe-physics-system.min.js"></script>
-   
+
 <style>
-.fade{
-    -webkit-transition: all 1s;
-    -moz-transition: all 1s;
-    -ms-transition: all 1s;
-    -o-transition: all 1s;
-    transition: all 1s;
-    transition-delay:10s;
-    opacity: 0.5;
-　　　}
 
-/*消える*/
-.fade1{
- opacity:0;
- pointer-events:none
-      }
-
-/*出る*/
-.fade2{
- opacity:0.5;
- pointer-events:auto;
- transition-delay:0s;
-      }
-
-#inputNum{
-  z-index:2;
-  position:fixed;
-  top:92%;
-  left:5%;
-  width:75px;
-  padding:10px;
-  border:white;
-  border-radius:5px;
+body
+{
+user-select: none; /* CSS3 */
+-moz-user-select: none; /* Firefox */
+-webkit-user-select: none; /* Safari、Chromeなど */
+-ms-user-select: none; /* IE10かららしい */
 }
 
-#video1{
-  z-index:1;
+button
+{
+user-select: none; /* CSS3 */
+-moz-user-select: none; /* Firefox */
+-webkit-user-select: none; /* Safari、Chromeなど */
+-ms-user-select: none; /* IE10かららしい */
+
+font: 18px 'Lucida Grande', Helvetica, Arial, sans-serif;
+width:20vw;
+height:7vh;
+user-select: none;
 }
+
 </style>
 
 <script>
@@ -147,10 +132,11 @@ render();
 
 </head>
 
-<body class="a-body">
+<body class="a-body" >
 
+<!--user-select:none重要！ボタン文字が選択状態になってしまう。-->
 <div id="back" style='position: fixed; top: 85%; width:100%;text-align: center; z-index: 100;'>
-    <button style="width:10vw;height:8vh">
+    <button >
         back
     </button>
 </div>
@@ -170,7 +156,7 @@ render();
 <!--radius超重要-->
 <!--gravity:0にすれば、position.yの位置から落ちない-->
 <a-entity id="rig" movement-controls="speed:0.05" kinematic-body="radius: 0.5" position="0 0.8 0" >
-  <a-entity camera id="camera" look-controls="pointerLockEnabled: true">
+  <a-entity camera id="camera" look-controls="pointerLockEnabled: true;reverseTouchDrag:true">
 
     <a-entity cursor="fuse:true;fuse-timeout:500;" position="0 0 -1"
               geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
@@ -372,6 +358,14 @@ console.log(rig.getAttribute('position'));
 },false);
 
 
+document.getElementById("back").addEventListener("touchstart", (e)=>
+{
+speed = -0.01;
+render();
+console.log(rig.getAttribute('position'));
+},false);
+
+
 
 document.getElementById("back").addEventListener("mouseup", (e)=>
 {
@@ -381,6 +375,13 @@ document.getElementById("back").addEventListener("mouseup", (e)=>
   console.log(rig.getAttribute('position'));
 },false);
 
+document.getElementById("back").addEventListener("touchend", (e)=>
+{
+  speed = 0;
+  //cancelAnimationFrame(render);
+  console.log("ok")
+  console.log(rig.getAttribute('position'));
+},false);
 
 
 /*
