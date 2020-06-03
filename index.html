@@ -25,6 +25,7 @@ https://opensource.org/licenses/mit-license.php
 <!--physicsは頭で読むとエラーになるが下げると壁突き抜けるのでひとまず-->
     <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v4.0.1/dist/aframe-physics-system.min.js"></script>
 
+
 <style>
 
 body
@@ -35,7 +36,7 @@ user-select: none; /* CSS3 */
 -ms-user-select: none; /* IE10かららしい */
 }
 
-button
+#backBtn
 {
 user-select: none; /* CSS3 */
 -moz-user-select: none; /* Firefox */
@@ -74,22 +75,78 @@ AFRAME.registerComponent('collider-check',
 */
 
 
+
+
+
 AFRAME.registerComponent('abo-listener',
-    {
+{
         init: function ()
-     {
+  {
+       var flgA=0;
+       var rotation_abo = document.getElementById("cg2").getAttribute('rotation');
+       var anime
+
+         function a()
+         {
+         anime=requestAnimationFrame(a);
+         rotation_abo.y += 0.1;
+         document.getElementById("cg2").setAttribute('rotation', rotation_abo);
+
+
+
+         }
+
+         function b()
+         {
+        var rotation_abo = document.getElementById("cg2").getAttribute('rotation');
+        cancelAnimationFrame(anime);
+         rotation_abo.y += 0;
+         document.getElementById("cg2").setAttribute('rotation', rotation_abo);
+         }
+
+
+
       this.el.addEventListener('fusing',function(evt)
-      {
+    {
       document.getElementById("text1").setAttribute('visible','true');
-      },false);
+      document.getElementById("aboAud").play();
+      document.body.addEventListener('keydown',
+      (e) => {
+        if ((event.key === "r") )
+        {
+
+        a();
+        flgA = 1;
+
+        }
+
+        if((event.key === "t") )
+        {
+        b();
+        console.log("!!!!!")
+        flgA = 0;
+        }
+
+        // flgA=0;
+      });
+    },false);
+
 
       this.el.addEventListener('mouseleave',function(evt)
       {
       document.getElementById("text1").setAttribute('visible','false');
+      document.getElementById("aboAud").pause();
       },false);
-    }
 
-    });
+
+    //init()
+  }
+
+});
+
+
+
+
 
 
 
@@ -134,9 +191,11 @@ render();
 
 <body class="a-body" >
 
+<audio id="aboAud" src="./audio/1-18 Are You Gonna Go My Way.mp3"></audio>
+
 <!--user-select:none重要！ボタン文字が選択状態になってしまう。-->
 <div id="back" style='position: fixed; top: 85%; width:100%;text-align: center; z-index: 100;'>
-    <button >
+    <button id="backBtn">
         back
     </button>
 </div>
@@ -156,10 +215,9 @@ render();
 <!--radius超重要-->
 <!--gravity:0にすれば、position.yの位置から落ちない-->
 <a-entity id="rig" movement-controls="speed:0.05" kinematic-body="radius: 0.5" position="0 0.8 0" >
-  <a-entity camera id="camera" look-controls="pointerLockEnabled: true;reverseTouchDrag:true">
-
-    <a-entity cursor="fuse:true;fuse-timeout:500;" position="0 0 -1"
-              geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
+ <a-entity camera id="camera" look-controls="pointerLockEnabled: true;reverseTouchDrag:true">
+    <a-entity cursor="fuse:true;fuse-timeout:500;" position="0 0 -0.1"
+              geometry="primitive: ring; radiusInner: 0.002; radiusOuter: 0.003"
               material="color: gray; shader: flat"></a-entity>
   </a-entity>
 </a-entity>
@@ -224,7 +282,7 @@ render();
     <a-box class="collidable" position="8 0 7" width="1" height="2" depth="1" color="#4CC3D9"static-body></a-box>
     <a-box class="collidable" position="8 0 8" width="1" height="2" depth="1" color="#4CC3D9"static-body></a-box-->
 
-<a-entity id="cg" class="collidable" gltf-model="url(./gltf/Pagoda.glb)" scale="0.01 0.01 0.01" position="1 -1 3" rotation="0 0 0" animation-mixer 
+<a-entity id="cg1" class="collidable" gltf-model="url(./gltf/Pagoda.glb)" scale="0.01 0.01 0.01" position="1 -1 3" rotation="0 0 0" animation-mixer 
 animation__in="property: scale;
                to: 0.03 0.03 0.03;
                dur: 100;
@@ -233,10 +291,10 @@ animation__out="property: scale;
                to: 0.01 0.01 0.01;
                dur: 100;
                startEvents: mouseleave"
-static-body></a-entity>
+static-body drag-rotate-component></a-entity>
 
 
-<a-entity id="cg" class="collidable" gltf-model="url(./gltf/Avocado.glb)" scale="5 5 5" position="2 -1 4" rotation="0 0 0" animation-mixer abo-listener
+<a-entity id="cg2" class="collidable" gltf-model="url(./gltf/Avocado.glb)" scale="5 5 5" position="2 -1 4" rotation="0 0 0" animation-mixer abo-listener
 animation__in="property: scale;
                to: 10 10 10;
                dur: 100;
@@ -245,9 +303,9 @@ animation__out="property: scale;
                to: 5 5 5;
                dur: 100;
                startEvents: mouseleave"
-static-body cursor-listener></a-entity>
+static-body ></a-entity>
 
-<a-entity id="text1" text="value: Hello World;align:center" visible="false" scale="3 3 3" position="2 0 4" static-body ></a-entity>
+<a-entity id="text1" text="value: Hello World;align:center" visible="false" scale="3 3 3" position="2 0 4" static-body drag-rotate-component></a-entity>
 <!--text="value: Hello World;align:center"-->
 
 
@@ -371,7 +429,7 @@ document.getElementById("back").addEventListener("mouseup", (e)=>
 {
   speed = 0;
   //cancelAnimationFrame(render);
-  console.log("ok")
+
   console.log(rig.getAttribute('position'));
 },false);
 
@@ -379,7 +437,7 @@ document.getElementById("back").addEventListener("touchend", (e)=>
 {
   speed = 0;
   //cancelAnimationFrame(render);
-  console.log("ok")
+
   console.log(rig.getAttribute('position'));
 },false);
 
