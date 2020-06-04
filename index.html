@@ -40,7 +40,7 @@ user-select: none; /* CSS3 */
 -ms-user-select: none; /* IE10かららしい */
 }
 
-#backBtn
+#backBtn,#pauseBtn
 {
 user-select: none; /* CSS3 */
 -moz-user-select: none; /* Firefox */
@@ -112,8 +112,6 @@ var audio = document.getElementById("aboAud");
 
 
       //document.getElementById("aboAud").pause();
-
-
 // audioの停止
     var end_func = setInterval(function()
     {
@@ -125,9 +123,25 @@ var audio = document.getElementById("aboAud");
         }
     }, fadeSpeed * baseVol / 100);
 
-
       flg_fuse=0;
       },false);
+
+
+//sp用
+
+
+document.getElementById("pauseBtn").onclick=function()
+{
+    var end_func = setInterval(function()
+    {
+        audio.volume = audio.volume - (baseVol / 100);
+        if(audio.volume <= (baseVol / 100)) {
+            audio.volume = baseVol;
+            audio.pause();
+            clearInterval(end_func);
+        }
+    }, fadeSpeed * baseVol / 100);
+};
 
 
     document.body.addEventListener('keydown',
@@ -159,7 +173,6 @@ var audio = document.getElementById("aboAud");
          flg_toggle=1;
         }else if (flg_fuse == 1 && flg_toggle == 1)
         {
-        document.getElementById("aboAud").pause();
 　　　　　document.getElementById("cg2").setAttribute("animation","enabled:false")
          flg_toggle=0;
         }
@@ -315,6 +328,12 @@ render();
 <div id="back" style='position: fixed; top: 85%; width:100%;text-align: center; z-index: 100;'>
     <button id="backBtn">
         back
+    </button>
+</div>
+
+<div id="pause" style='position: fixed; top: 85%; width:100%;text-align: left; z-index: 100;'>
+    <button id="pauseBtn">
+        music off
     </button>
 </div>
 
