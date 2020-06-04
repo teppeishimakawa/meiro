@@ -98,7 +98,9 @@ var fadeSpeed = 3000; // フェードイン・フェードアウトのスピー�
 var audio = document.getElementById("aboAud");
 
 
-////////////////////////////////
+//////////audio再生高速化
+
+var isSP, ctx, xml, data;
     // コンテキストを生成
     window.AudioContext = window.AudioContext || window.webkitAudioContext;
     ctx = new AudioContext();
@@ -123,10 +125,12 @@ var audio = document.getElementById("aboAud");
         );
     };
     xml.send();
-
+            var bufferSource;
+            bufferSource = ctx.createBufferSource();
+           // console.log(bufferSource);
+            bufferSource.buffer = data;
+            bufferSource.connect(ctx.destination);
     //isSP = typeof window.ontouchstart !== 'undefined';
-
-
 ////////////////////////////////
 
 
@@ -149,7 +153,7 @@ var audio = document.getElementById("aboAud");
 
 
       //document.getElementById("aboAud").pause();
-// audioの停止
+// audioの停止pc用
     var end_func = setInterval(function()
     {
         audio.volume = audio.volume - (baseVol / 100);
@@ -159,6 +163,9 @@ var audio = document.getElementById("aboAud");
             clearInterval(end_func);
         }
     }, fadeSpeed * baseVol / 100);
+
+
+    bufferSource.stop
 
       flg_fuse=0;
       },false);
@@ -187,15 +194,11 @@ var audio = document.getElementById("aboAud");
       {
           if (flg_fuse == 1 && flg_toggle == 0)
         {
+///audio再生高速化
 
-           var bufferSource;
-            bufferSource = ctx.createBufferSource();
-            console.log(bufferSource);
-            bufferSource.buffer = data;
-            bufferSource.connect(ctx.destination);
             bufferSource.start(0);
+///////////////////////
 
-          
         //document.getElementById("aboAud").play();
 　　　　　document.getElementById("cg2").setAttribute("animation",`enabled:true ; property: rotation; 
   　　　　to: 0 ${cg2_rot.y*180/Math.PI +360} 0;  dur: 10000;loop: true; easing:easeInOutQuad`)
