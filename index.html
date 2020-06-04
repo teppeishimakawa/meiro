@@ -127,10 +127,6 @@ var bufferSource;
     };
     xml.send();
 
-            bufferSource = ctx.createBufferSource();
-           // console.log(bufferSource);
-            bufferSource.buffer = data;
-
     //isSP = typeof window.ontouchstart !== 'undefined';
 ////////////////////////////////
 
@@ -166,6 +162,8 @@ var bufferSource;
     }, fadeSpeed * baseVol / 100);
 
 
+bufferSource.stop(0);
+
       flg_fuse=0;
       },false);
 
@@ -195,7 +193,9 @@ var bufferSource;
         {
 ///audio再生高速化
 
-
+            bufferSource = ctx.createBufferSource();
+           // console.log(bufferSource);
+            bufferSource.buffer = data;
             bufferSource.connect(ctx.destination);
             bufferSource.start(0);
 ///////////////////////
