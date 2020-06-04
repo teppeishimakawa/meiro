@@ -102,6 +102,8 @@ var audio = document.getElementById("aboAud");
 
 var isSP, ctx, xml, data;
 var bufferSource;
+var cnt=0;
+
     // コンテキストを生成
     window.AudioContext = window.AudioContext || window.webkitAudioContext;
     ctx = new AudioContext();
@@ -159,6 +161,7 @@ var bufferSource;
             audio.pause();
             //sp用
             bufferSource.stop(0);
+            cnt=0;
             clearInterval(end_func);
         }
     }, fadeSpeed * baseVol / 100);
@@ -195,13 +198,14 @@ var bufferSource;
         {
 ///audio再生高速化
 
-if(!bufferSource.start(0))
+if(cnt==0)
 {
             bufferSource = ctx.createBufferSource();
            // console.log(bufferSource);
             bufferSource.buffer = data;
             bufferSource.connect(ctx.destination);
             bufferSource.start(0);
+            cnt++;
 }
 ///////////////////////
 
