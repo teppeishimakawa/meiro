@@ -125,11 +125,7 @@ var isSP, ctx, xml, data;
         );
     };
     xml.send();
-            var bufferSource;
-            bufferSource = ctx.createBufferSource();
-           // console.log(bufferSource);
-            bufferSource.buffer = data;
-            bufferSource.connect(ctx.destination);
+
     //isSP = typeof window.ontouchstart !== 'undefined';
 ////////////////////////////////
 
@@ -195,7 +191,11 @@ var isSP, ctx, xml, data;
           if (flg_fuse == 1 && flg_toggle == 0)
         {
 ///audio再生高速化
-
+            var bufferSource;
+            bufferSource = ctx.createBufferSource();
+           // console.log(bufferSource);
+            bufferSource.buffer = data;
+            bufferSource.connect(ctx.destination);
             bufferSource.start(0);
 ///////////////////////
 
