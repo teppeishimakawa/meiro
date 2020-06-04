@@ -80,6 +80,43 @@ AFRAME.registerComponent('collider-check',
 */
 
 
+    // コンテキストを生成
+    window.AudioContext = window.AudioContext || window.webkitAudioContext;
+    ctx = new AudioContext();
+
+    // 音源ファイルをバイナリデータとして取得
+    xml = new XMLHttpRequest();
+    xml.responseType = 'arraybuffer';
+    xml.open('GET', "./audio/1-18 Are You Gonna Go My Way.mp3", true);
+    xml.onload = function()
+    {
+        // 音源ファイルをバイナリデータからデコード
+        ctx.decodeAudioData(
+            xml.response,
+            function(dec_data)
+            {
+                data = dec_data;
+            },
+            function(e)
+            {
+                alert(e.err);
+            }
+        );
+    };
+    xml.send();
+
+    //isSP = typeof window.ontouchstart !== 'undefined';
+
+        document.getElementById("cg2").addEventListener('touchstart', function()
+        {
+            var bufferSource;
+            bufferSource = ctx.createBufferSource();
+            bufferSource.buffer = data;
+            bufferSource.connect(ctx.destination);
+            bufferSource.start(0);
+        }
+
+
 
 AFRAME.registerComponent('abo-listener',
 {
@@ -93,6 +130,7 @@ var flg_toggle=0;
 var baseVol = 1; // audioのベースの音量
 var fadeSpeed = 3000; // フェードイン・フェードアウトのスピード
 var audio = document.getElementById("aboAud");
+
 
 
 //
