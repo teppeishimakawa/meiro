@@ -95,23 +95,16 @@ var audio = document.getElementById("aboAud");
 
 
 //fuseだとiosで音声再生s
-      this.el.addEventListener('fuse',function(evt)
+      this.el.addEventListener('mouseenter',function(evt)
     {
       baseVol = 1
-      document.getElementById("text1").setAttribute('visible','true');
       document.getElementById("aboAud").play();
+      document.getElementById("text1").setAttribute('visible','true');
       flg_fuse=1;
     },false);
 
-/*
-     this.el.addEventListener('touchstart',function(evt)
-    {
-      baseVol = 1
-      document.getElementById("text1").setAttribute('visible','true');
-      document.getElementById("aboAud").play();
-      flg_fuse=1;
-    },false);
-*/
+
+
 
       this.el.addEventListener('mouseleave',function(evt)
       {
@@ -142,6 +135,7 @@ var audio = document.getElementById("aboAud");
       {
           if (event.key == " " && flg_fuse == 1 && flg_toggle == 0)
         {
+        
 　　　　　document.getElementById("cg2").setAttribute("animation",`enabled:true ; property: rotation; 
   　　　　to: 0 ${cg2_rot.y*180/Math.PI +360} 0;  dur: 10000;loop: true; easing:easeInOutQuad`)
          flg_toggle=1;
@@ -156,6 +150,7 @@ var audio = document.getElementById("aboAud");
         document.body.addEventListener('touchstart',
       (e) =>
       {
+        document.getElementById("aboAud").play();
           if (flg_fuse == 1 && flg_toggle == 0)
         {
 　　　　　document.getElementById("cg2").setAttribute("animation",`enabled:true ; property: rotation; 
@@ -428,7 +423,7 @@ animation__out="property: scale;
                startEvents: mouseleave"
 static-body ></a-entity>
 
-<a-entity id="text1" text="value: Hello World;align:center" visible="false" scale="3 3 3" position="2 0 4" static-body click-drag sound="src: url(./audio/1-18 Are You Gonna Go My Way.mp3); on: touchstart;volume:1"></a-entity>
+<a-entity id="text1" text="value: Hello World;align:center" visible="false" scale="3 3 3" position="2 0 4" static-body click-drag></a-entity>
 <!--text="value: Hello World;align:center"-->
 
 
