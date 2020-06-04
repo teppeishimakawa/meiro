@@ -53,19 +53,6 @@ height:7vh;
 user-select: none;
 }
 
-
-#pauseBtn
-{
-user-select: none; /* CSS3 */
--moz-user-select: none; /* Firefox */
--webkit-user-select: none; /* Safari、Chromeなど */
--ms-user-select: none; /* IE10かららしい */
-
-font: 18px 'Lucida Grande', Helvetica, Arial, sans-serif;
-width:20vw;
-height:7vh;
-user-select: none;
-}
 </style>
 
 <script>
@@ -140,23 +127,6 @@ var audio = document.getElementById("aboAud");
       },false);
 
 
-//sp用
-
-
-document.getElementById("pauseBtn").onclick=function()
-{
-    var end_func = setInterval(function()
-    {
-        audio.volume = audio.volume - (baseVol / 100);
-        if(audio.volume <= (baseVol / 100)) {
-            audio.volume = baseVol;
-            audio.pause();
-            clearInterval(end_func);
-        }
-    }, fadeSpeed * baseVol / 100);
-};
-
-
     document.body.addEventListener('keydown',
       (e) =>
       {
@@ -177,7 +147,6 @@ document.getElementById("pauseBtn").onclick=function()
         document.body.addEventListener('touchstart',
       (e) =>
       {
-        
           if (flg_fuse == 1 && flg_toggle == 0)
         {
         document.getElementById("aboAud").play();
@@ -343,12 +312,6 @@ render();
         back
     </button>
 </div>
-
-<!--div id="pause" style='position: fixed; top: 85%; width:100%;text-align: left; z-index: 100;'>
-    <button id="pauseBtn">
-        music off
-    </button>
-</div-->
 
 <!-- kinematic-body static-body physicallyCorrectLights:true"-->
 <a-scene id="myScene" inspector="" renderer="antialias:true;colorManagement:true; class="fullscreen" keyboard-shortcuts="" screenshot="" vr-mode-ui="" physics="debug: false;gravity:-9.8">
