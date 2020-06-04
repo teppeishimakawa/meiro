@@ -101,6 +101,7 @@ var audio = document.getElementById("aboAud");
 //////////audio再生高速化
 
 var isSP, ctx, xml, data;
+var bufferSource;
     // コンテキストを生成
     window.AudioContext = window.AudioContext || window.webkitAudioContext;
     ctx = new AudioContext();
@@ -161,8 +162,6 @@ var isSP, ctx, xml, data;
     }, fadeSpeed * baseVol / 100);
 
 
-    bufferSource.stop
-
       flg_fuse=0;
       },false);
 
@@ -191,7 +190,7 @@ var isSP, ctx, xml, data;
           if (flg_fuse == 1 && flg_toggle == 0)
         {
 ///audio再生高速化
-            var bufferSource;
+
             bufferSource = ctx.createBufferSource();
            // console.log(bufferSource);
             bufferSource.buffer = data;
@@ -201,7 +200,7 @@ var isSP, ctx, xml, data;
 
         //document.getElementById("aboAud").play();
 　　　　　document.getElementById("cg2").setAttribute("animation",`enabled:true ; property: rotation; 
-  　　　　to: 0 ${cg2_rot.y*180/Math.PI +360} 0;  dur: 10000;loop: true; easing:easeInOutQuad`)
+  　　　　to: 0 ${cg2_rot.y*180/Math.PI +360} 0;  dur: 10000;loop: true; easinsg:easeInOutQuad`)
          flg_toggle=1;
         }else if (flg_fuse == 1 && flg_toggle == 1)
         {
