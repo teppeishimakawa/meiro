@@ -94,8 +94,17 @@ var fadeSpeed = 3000; // フェードイン・フェードアウトのスピー�
 var audio = document.getElementById("aboAud");
 
 
+//fuseだとiosで音声再生s
+      this.el.addEventListener('fuse',function(evt)
+    {
+      baseVol = 1
+      document.getElementById("text1").setAttribute('visible','true');
+      document.getElementById("aboAud").play();
+      flg_fuse=1;
+    },false);
 
-      this.el.addEventListener('fusing',function(evt)
+
+     this.el.addEventListener('touchstart',function(evt)
     {
       baseVol = 1
       document.getElementById("text1").setAttribute('visible','true');
