@@ -13,9 +13,9 @@ https://opensource.org/licenses/mit-license.php
 <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 <link rel="stylesheet" href="./style.css" />
 
-<link rel="prefetch" href="./gltf/Pagoda.glb">
+<!--link rel="prefetch" href="./gltf/Pagoda.glb">
 <link rel="prefetch" href="./gltf/Avocado.glb">
-<link rel="prefetch" href="./audio/1-18 Are You Gonna Go My Way.mp3">
+<link rel="prefetch" href="./audio/1-18 Are You Gonna Go My Way.mp3"-->
 <title>vr_meiro</title>
 <!--script src="https://aframe.io/releases/0.7.1/aframe.min.js"></script>
 <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v3.12.4/dist/aframe-extras.min.js"></script-->
@@ -127,6 +127,10 @@ var bufferSource;
     };
     xml.send();
 
+            bufferSource = ctx.createBufferSource();
+           // console.log(bufferSource);
+            bufferSource.buffer = data;
+
     //isSP = typeof window.ontouchstart !== 'undefined';
 ////////////////////////////////
 
@@ -191,9 +195,7 @@ var bufferSource;
         {
 ///audio再生高速化
 
-            bufferSource = ctx.createBufferSource();
-           // console.log(bufferSource);
-            bufferSource.buffer = data;
+
             bufferSource.connect(ctx.destination);
             bufferSource.start(0);
 ///////////////////////
