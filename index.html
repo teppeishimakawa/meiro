@@ -157,12 +157,14 @@ var bufferSource;
         if(audio.volume <= (baseVol / 100)) {
             audio.volume = baseVol;
             audio.pause();
+            //sp用
+            bufferSource.stop(0);
             clearInterval(end_func);
         }
     }, fadeSpeed * baseVol / 100);
 
 
-bufferSource.stop(0);
+
 
       flg_fuse=0;
       },false);
@@ -193,11 +195,14 @@ bufferSource.stop(0);
         {
 ///audio再生高速化
 
+if(!bufferSource.start(0))
+{
             bufferSource = ctx.createBufferSource();
            // console.log(bufferSource);
             bufferSource.buffer = data;
             bufferSource.connect(ctx.destination);
             bufferSource.start(0);
+}
 ///////////////////////
 
         //document.getElementById("aboAud").play();
