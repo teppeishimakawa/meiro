@@ -103,7 +103,7 @@ var audio = document.getElementById("aboAud");
       flg_fuse=1;
     },false);
 
-
+/*
      this.el.addEventListener('touchstart',function(evt)
     {
       baseVol = 1
@@ -111,7 +111,7 @@ var audio = document.getElementById("aboAud");
       document.getElementById("aboAud").play();
       flg_fuse=1;
     },false);
-
+*/
 
       this.el.addEventListener('mouseleave',function(evt)
       {
@@ -428,7 +428,7 @@ animation__out="property: scale;
                startEvents: mouseleave"
 static-body ></a-entity>
 
-<a-entity id="text1" text="value: Hello World;align:center" visible="false" scale="3 3 3" position="2 0 4" static-body click-drag></a-entity>
+<a-entity id="text1" text="value: Hello World;align:center" visible="false" scale="3 3 3" position="2 0 4" static-body click-drag sound="src: url(./audio/1-18 Are You Gonna Go My Way.mp3); on: touchstart;volume:1"></a-entity>
 <!--text="value: Hello World;align:center"-->
 
 
