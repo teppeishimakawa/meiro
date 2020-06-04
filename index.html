@@ -305,7 +305,7 @@ render();
 
 <body class="a-body" >
 
-<audio id="aboAud" src="./audio/1-18 Are You Gonna Go My Way.mp3"></audio>
+
 
 <!--user-select:none重要！ボタン文字が選択状態になってしまう。-->
 <div id="back" style='position: fixed; top: 85%; width:100%;text-align: center; z-index: 100;'>
@@ -317,6 +317,9 @@ render();
 <!-- kinematic-body static-body physicallyCorrectLights:true"-->
 <a-scene id="myScene" inspector="" renderer="antialias:true;colorManagement:true; class="fullscreen" keyboard-shortcuts="" screenshot="" vr-mode-ui="" physics="debug: false;gravity:-9.8">
 
+  <a-assets>
+    <audio id="aboAud" src="./audio/1-18 Are You Gonna Go My Way.mp3" preload="auto"></audio>
+  </a-assets>
 
 <!--a-assets  動くけどエラーでたのでentityから直接読み込み>
   <a-asset-item id="model" crossOrigin="anonymous" src="./gltf/Pagoda.glb"></a-asset-item>
