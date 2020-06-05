@@ -11,10 +11,7 @@ https://opensource.org/licenses/mit-license.php
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-<link rel="stylesheet" href="./style.css" />
 
-<link rel="prefetch" href="./gltf/Pagoda.glb">
-<link rel="prefetch" href="./gltf/BrainStem.gltf">
 <!--link rel="prefetch" href="./audio/1-18 Are You Gonna Go My Way.mp3"-->
 <title>vr_meiro</title>
 
@@ -204,14 +201,13 @@ if(!mobile)
 }
 
 //sp用
-
 if(mobile)
 {
   console.log("mobile")
-        document.body.addEventListener('touchstart',
+  document.body.addEventListener('touchstart',
       (e) =>
       {
-          if (flg_fuse == 1 && flg_toggle == 0)
+          if (flg_fuse == 1)
         {
 
   /*         //////////audio再生高速化
@@ -235,14 +231,13 @@ if(mobile)
             bufferSource.buffer = data;
             bufferSource.connect(ctx.destination);
             bufferSource.start(0);
-            cnt++;
+            cnt=1;
            }
            ///////////////////////
          document.getElementById("cg2").setAttribute("animation-mixer","");
 　　　　　document.getElementById("cg2").setAttribute("animation",`enabled:true ; property: rotation; 
   　　　　to: 0 ${cg2_rot.y*180/Math.PI +360} 0;  dur: 10000;loop: true; easinsg:easeInOutQuad`)
-         flg_toggle=1;
-        }else if (flg_fuse == 1 && flg_toggle == 1)
+        }else if (flg_fuse == 1)
         {
 
     /*    ///audio再生高速化
@@ -256,14 +251,11 @@ if(mobile)
             cnt++;
         }
         ///////////////////////    */
-               if(mobile)
-        {
-            bufferSource.stop(0);
-            cnt=0;
-        }
+
+        bufferSource.stop(0);
+        cnt=0;
          document.getElementById("cg2").removeAttribute('animation-mixer');
 　　　　　document.getElementById("cg2").setAttribute("animation","enabled:false")
-         flg_toggle=0;
         }
      });
 
