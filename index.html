@@ -13,9 +13,9 @@ https://opensource.org/licenses/mit-license.php
 <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 <link rel="stylesheet" href="./style.css" />
 
-<!--link rel="prefetch" href="./gltf/Pagoda.glb">
-<link rel="prefetch" href="./gltf/Avocado.glb">
-<link rel="prefetch" href="./audio/1-18 Are You Gonna Go My Way.mp3"-->
+<link rel="prefetch" href="./gltf/Pagoda.glb">
+<link rel="prefetch" href="./gltf/BrainStem.gltf">
+<!--link rel="prefetch" href="./audio/1-18 Are You Gonna Go My Way.mp3"-->
 <title>vr_meiro</title>
 
     <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
@@ -347,7 +347,7 @@ if(mobile)
         {
          document.getElementById("cg1").setAttribute("animation-mixer","");
 　　　　　document.getElementById("cg1").setAttribute("animation",`enabled:true ; property: rotation;
-  　　　　to: 0 ${cg2_rot.y*180/Math.PI +360} 0;  dur: 10000;loop: true; easinsg:easeInOutQuad`)
+  　　　　to: 0 ${cg1_rot.y*180/Math.PI +360} 0;  dur: 10000;loop: true; easinsg:easeInOutQuad`)
          flg_toggle=1;
         }else if (flg_fuse == 1 && flg_toggle == 1)
         {
@@ -591,7 +591,7 @@ animation__out="property: scale;
 static-body></a-entity>
 
 
-<a-entity id="cg2" class="collidable" gltf-model="url(./gltf/BrainStem.gltf)" scale="0.35 0.35 0.35" position="2 -1 4" rotation="0 0 0"  abo-listener geometry="primitive: box"
+<a-entity id="cg2" class="collidable" gltf-model="url(./gltf/BrainStem.gltf)" scale="0.35 0.35 0.35" position="2 -1 4" rotation="0 0 0"  abo-listener
 animation__in="property: scale;
                to: 0.45 0.45 0.45;
                dur: 100;
