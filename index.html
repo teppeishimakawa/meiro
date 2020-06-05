@@ -207,7 +207,7 @@ if(mobile)
   document.body.addEventListener('touchstart',
       (e) =>
       {
-          if (flg_fuse == 1)
+          if (flg_fuse == 1 && cnt==0)
         {
 
   /*         //////////audio再生高速化
@@ -224,20 +224,19 @@ if(mobile)
 
         //document.getElementById("aboAud").play();
                    //////////audio再生高速化
-           if(cnt==0)
-           {
+           
             bufferSource = ctx.createBufferSource();
            // console.log(bufferSource);
             bufferSource.buffer = data;
             bufferSource.connect(ctx.destination);
             bufferSource.start(0);
             cnt=1;
-           }
+           
            ///////////////////////
          document.getElementById("cg2").setAttribute("animation-mixer","");
 　　　　　document.getElementById("cg2").setAttribute("animation",`enabled:true ; property: rotation; 
   　　　　to: 0 ${cg2_rot.y*180/Math.PI +360} 0;  dur: 10000;loop: true; easinsg:easeInOutQuad`)
-        }else if (flg_fuse == 1)
+        }else if (flg_fuse == 1 && cnt==1)
         {
 
     /*    ///audio再生高速化
