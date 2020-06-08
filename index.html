@@ -487,6 +487,7 @@ render();
 <!-- kinematic-body static-body physicallyCorrectLights:true"-->
 <a-scene id="myScene" inspector="" renderer="antialias:true;colorManagement:true; class="fullscreen" keyboard-shortcuts="" screenshot="" vr-mode-ui="" physics="debug: false;gravity:-9.8">
 
+<a-plane id="myStage" static-body material="color: grey" width="100" height="100" rotation="-90 0 0" position="0 0 0"></a-plane>
 
   <a-assets>
     <a-asset-item id="cg1" src="./gltf/Pagoda.glb"></a-asset-item>
@@ -517,7 +518,7 @@ render();
 </a-entity>
 
 
-<a-plane id="myStage" static-body material="color: grey" width="100" height="100" rotation="-90 0 0" position="0 0 0"></a-plane>
+
 
 <a-entity id="maze" position="-4 1 -10" >
     <!--a-box class="collidable" position="0 0 0" width="1" height="2" depth="1" color="#4CC3D9" static-body></a-box>
@@ -614,7 +615,7 @@ static-body ></a-entity>
 
     <!--script src="https://rawgit.com/rdub80/aframe-gui/master/dist/aframe-gui.min.js"></script--> <!--GUI Library-->
     <!--script src="https://unpkg.com/aframe-environment-component@1.1.0/dist/aframe-environment-component.min.js"></script-->
-</a-scene>
+
 
 
 <script>
@@ -769,6 +770,6 @@ render();
 </script>
 
 
-
+</a-scene>
 
 </body></html>
