@@ -258,7 +258,8 @@ if(mobile)
 
         //document.getElementById("aboAud").play();
                    //////////audio再生高速化
-            bufferSource = null;
+            if(bufferSource){bufferSource.stop(0);};
+
             bufferSource = ctx.createBufferSource();
            // console.log(bufferSource);
             bufferSource.buffer = data;
@@ -428,7 +429,9 @@ if(mobile)
       {
           if (flg_fuse == 1 && flg_toggle == 0)
         {
-            bufferSource = null;
+
+            if(bufferSource){bufferSource.stop(0);};
+
             bufferSource = ctx.createBufferSource();
            // console.log(bufferSource);
             bufferSource.buffer = data;
