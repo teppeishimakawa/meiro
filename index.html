@@ -2,7 +2,6 @@
 Copyright © 2015-2017 A-Frame authors.
 Released under the MIT license
 https://opensource.org/licenses/mit-license.php
-
 -->
 
 
@@ -17,8 +16,9 @@ https://opensource.org/licenses/mit-license.php
 
     <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/aframe-environment-component@2.0.0/dist/aframe-environment-component.min.js"></script>
+    <!--↓矢印キー移動などに必要-->
     <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.0/dist/aframe-extras.min.js"></script>
-<!--physicsは頭で読むとエラーになるが下げると壁突き抜けるのでひとまず-->
+    <!--physicsは頭で読むとエラーになるが下げると壁突き抜けるのでひとまず-->
     <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v4.0.1/dist/aframe-physics-system.min.js"></script>
 
 <!--script src="https://cdn.jsdelivr.net/npm/aframe-click-drag-component@3.0.1/dist/aframe-click-drag-component.min.js"></script>
@@ -27,7 +27,6 @@ https://opensource.org/licenses/mit-license.php
   </script-->
 
 <style>
-
 body
 {
 user-select: none; /* CSS3 */
@@ -41,8 +40,7 @@ user-select: none; /* CSS3 */
 user-select: none; /* CSS3 */
 -moz-user-select: none; /* Firefox */
 -webkit-user-select: none; /* Safari、Chromeなど */
--ms-user-select: none; /* IE10かららしい */
-
+-ms-user-select: none; /* IE10から */
 font: 18px 'Lucida Grande', Helvetica, Arial, sans-serif;
 width:20vw;
 height:7vh;
@@ -54,19 +52,18 @@ user-select: none;
 user-select: none; /* CSS3 */
 -moz-user-select: none; /* Firefox */
 -webkit-user-select: none; /* Safari、Chromeなど */
--ms-user-select: none; /* IE10かららしい */
-
+-ms-user-select: none; /* IE10から */
 font: 18px 'Lucida Grande', Helvetica, Arial, sans-serif;
 width:20vw;
 height:7vh;
 user-select: none;
 }
-
 </style>
 
+
+
+
 <script>
-
-
 
 function isMobile()
 {
@@ -76,6 +73,7 @@ function isMobile()
 }
 
 const mobile = isMobile();
+
 /*
 var speed = 0.01;
 var isIntersect = false;
@@ -96,7 +94,10 @@ AFRAME.registerComponent('collider-check',
     }
 });
 */
-    var model_cnt=0;
+var model_cnt=0;
+var bufferSource;
+
+
 
 AFRAME.registerComponent('model-loader', {
   init: function () {
@@ -133,7 +134,7 @@ var audio = document.getElementById("aboAud");
 
 //////////audio再生高速化
 var isSP, ctx, xml, data;
-var bufferSource;
+//var bufferSource;
 var cnt=0;
 
 if(mobile)
@@ -203,7 +204,8 @@ if(!mobile)
           if (event.key == " " && flg_fuse == 1 && flg_toggle == 0)
         {
                 baseVol = 1
-      document.getElementById("aboAud").play(); //pc音声用
+         document.getElementById("aboAud").play(); //pc音声用
+         document.getElementById("twAud").pause();
          document.getElementById("cg2ent").setAttribute("animation-mixer","");
 　　　　　document.getElementById("cg2ent").setAttribute("animation",`enabled:true ; property: rotation; 
   　　　　to: 0 ${cg2_rot.y*180/Math.PI +360} 0;  dur: 10000;loop: true; easing:easeInOutQuad`)
@@ -303,6 +305,9 @@ if(mobile)
 
 
 
+
+
+
 /////////////////////////////////////
 
 AFRAME.registerComponent('pago-listener',
@@ -313,6 +318,46 @@ AFRAME.registerComponent('pago-listener',
 var cg1_rot=document.getElementById("cg1ent").getAttribute('rotation');
 var flg_fuse=0;
 var flg_toggle=0;
+
+
+var baseVol = 1; // audioのベースの音量
+var fadeSpeed = 3000; // フェードイン・フェードアウトのスピード
+var audio = document.getElementById("twAud");
+
+
+//////////audio再生高速化
+var isSP, ctx, xml, data;
+//var bufferSource;
+var cnt=0;
+
+
+if(mobile)
+{
+    // コンテキストを生成
+    window.AudioContext = window.AudioContext || window.webkitAudioContext;
+    ctx = new AudioContext();
+
+    // 音源ファイルをバイナリデータとして取得
+    xml = new XMLHttpRequest();
+    xml.responseType = 'arraybuffer';
+    xml.open('GET', "./audio/Ancient_Beijing.mp3", true);
+    xml.onload = function()
+    {
+        // 音源ファイルをバイナリデータからデコード
+        ctx.decodeAudioData(
+            xml.response,
+            function(dec_data)
+            {
+                data = dec_data;
+            },
+            function(e)
+            {
+                alert(e.err);
+            }
+        );
+    };
+    xml.send();
+}
 
 
 
@@ -340,6 +385,9 @@ if(!mobile)
           if (event.key == " " && flg_fuse == 1 && flg_toggle == 0)
         {
 
+         baseVol = 1
+         document.getElementById("twAud").play(); //pc音声用
+         document.getElementById("aboAud").pause();
          document.getElementById("cg1ent").setAttribute("animation-mixer","");
 　　　　　document.getElementById("cg1ent").setAttribute("animation",`enabled:true ; property: rotation; 
   　　　　to: 0 ${cg1_rot.y*180/Math.PI +360} 0;  dur: 10000;loop: true; easing:easeInOutQuad`)
@@ -347,6 +395,18 @@ if(!mobile)
 
         }else if (event.key == " " && flg_fuse == 1 && flg_toggle == 1)
         {
+
+          var end_func = setInterval(function()
+         {
+          audio.volume = audio.volume - (baseVol / 100);
+          if(audio.volume <= (baseVol / 100))
+          {
+            audio.volume = baseVol;
+            audio.pause();
+            //sp用
+            clearInterval(end_func);
+          }
+         }, fadeSpeed * baseVol / 100);
 
 
         document.getElementById("cg1ent").removeAttribute('animation-mixer');
@@ -367,6 +427,15 @@ if(mobile)
       {
           if (flg_fuse == 1 && flg_toggle == 0)
         {
+
+            bufferSource = ctx.createBufferSource();
+           // console.log(bufferSource);
+            bufferSource.buffer = data;
+            bufferSource.connect(ctx.destination);
+            bufferSource.start(0);
+            cnt=1;
+
+
          document.getElementById("cg1ent").setAttribute("animation-mixer","");
 　　　　　document.getElementById("cg1ent").setAttribute("animation",`enabled:true ; property: rotation;
   　　　　to: 0 ${cg1_rot.y*180/Math.PI +360} 0;  dur: 10000;loop: true; easinsg:easeInOutQuad`)
@@ -374,6 +443,9 @@ if(mobile)
         }else if (flg_fuse == 1 && flg_toggle == 1)
         {
 
+
+          bufferSource.stop(0);
+          cnt=0;
          document.getElementById("cg1ent").removeAttribute('animation-mixer');
 　　　　　document.getElementById("cg1ent").setAttribute("animation","enabled:false")
          flg_toggle=0;
@@ -517,6 +589,7 @@ render();
 </div>
 
       <audio id="aboAud" src="./audio/1-18 Are You Gonna Go My Way.mp3" preload="auto"></audio>
+      <audio id="twAud" src="./audio/Ancient_Beijing.mp3" preload="auto"></audio>
 
 <!-- kinematic-body static-body physicallyCorrectLights:true"-->
 <a-scene id="myScene" inspector="" renderer="antialias:true;colorManagement:true; class="fullscreen" keyboard-shortcuts="" screenshot="" vr-mode-ui="" physics="debug: false;gravity:-9.8" visible="false">
@@ -543,9 +616,7 @@ render();
 
 <a-entity id="maze" position="-4 1 -10" >
 
-
-
-<a-entity id="cg1ent" class="collidable" gltf-model="#url(./gltf/Pagoda.glb)" scale="0.01 0.01 0.01" position="1 -1 3" rotation="0 0 0" pago-listener model-loader 
+<a-entity id="cg1ent" class="collidable" gltf-model="#url(./gltf/Pagoda.glb)" scale="0.01 0.01 0.01" position="1 -1 3" rotation="0 0 0" pago-listener model-loader
 animation__in="property: scale;
                to: 0.03 0.03 0.03;
                dur: 100;
@@ -566,12 +637,12 @@ animation__out="property: scale;
                to: 0.35 0.35 0.35;
                dur: 100;
                startEvents: mouseleave"
-static-body ></a-entity>
+static-body></a-entity>
 
 <a-entity id="text1" text="value: Hello World;align:center" visible="false" scale="3 3 3" position="2 0 4" static-body click-drag></a-entity>
 <!--text="value: Hello World;align:center"-->
 
-
+<!--mazeのa-sentity-->
 </a-entity>
 
 
