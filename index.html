@@ -258,12 +258,13 @@ if(mobile)
 
         //document.getElementById("aboAud").play();
                    //////////audio再生高速化
-           
+            bufferSource = null;
             bufferSource = ctx.createBufferSource();
            // console.log(bufferSource);
             bufferSource.buffer = data;
             bufferSource.connect(ctx.destination);
             bufferSource.start(0);
+            console.log(bufferSource);
             cnt=1;
            
            ///////////////////////
@@ -427,12 +428,13 @@ if(mobile)
       {
           if (flg_fuse == 1 && flg_toggle == 0)
         {
-
+            bufferSource = null;
             bufferSource = ctx.createBufferSource();
            // console.log(bufferSource);
             bufferSource.buffer = data;
             bufferSource.connect(ctx.destination);
             bufferSource.start(0);
+            console.log(bufferSource);
             cnt=1;
 
 
@@ -585,7 +587,7 @@ render();
 </div>
 
 <div id="wait" style='position: fixed; top: 50%; width:100%;text-align: center; z-index: 100;'>
-        please wait a minite...
+        please wait a minute...
 </div>
 
       <audio id="aboAud" src="./audio/1-18 Are You Gonna Go My Way.mp3" preload="auto"></audio>
