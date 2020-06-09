@@ -241,9 +241,6 @@ if(mobile)
   document.body.addEventListener('touchstart',
       (e) =>
       {
-
-         if(bufferSource){bufferSource.stop(0);};
-        
           if (flg_fuse == 1 && cnt==0)
         {
 
@@ -261,7 +258,7 @@ if(mobile)
 
         //document.getElementById("aboAud").play();
                    //////////audio再生高速化
-   
+            if(bufferSource){bufferSource.stop(0);};
 
             bufferSource = ctx.createBufferSource();
            // console.log(bufferSource);
@@ -277,6 +274,8 @@ if(mobile)
   　　　　to: 0 ${cg2_rot.y*180/Math.PI +360} 0;  dur: 10000;loop: true; easinsg:easeInOutQuad`)
         }else if (flg_fuse == 1 && cnt==1)
         {
+
+           if(bufferSource){bufferSource.stop(0);};
 
     /*    ///audio再生高速化
         if(cnt==0)
@@ -432,11 +431,11 @@ if(mobile)
       (e) =>
       {
 
-             if(bufferSource){bufferSource.stop(0);};
 
           if (flg_fuse == 1 && flg_toggle == 0)
         {
 
+             if(bufferSource){bufferSource.stop(0);};
 
             bufferSource = ctx.createBufferSource();
            // console.log(bufferSource);
@@ -453,6 +452,8 @@ if(mobile)
          flg_toggle=1;
         }else if (flg_fuse == 1 && flg_toggle == 1)
         {
+
+          if(bufferSource){bufferSource.stop(0);};
 
           bufferSource.stop(0);
           bufferSource=null;
