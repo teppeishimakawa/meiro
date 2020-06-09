@@ -428,10 +428,11 @@ if(mobile)
         document.body.addEventListener('touchstart',
       (e) =>
       {
+
+        if(bufferSource){bufferSource.stop(0);};
+
           if (flg_fuse == 1 && flg_toggle == 0)
         {
-
-            if(bufferSource){bufferSource.stop(0);};
 
             bufferSource = ctx.createBufferSource();
            // console.log(bufferSource);
