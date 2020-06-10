@@ -428,7 +428,7 @@ if(mobile)
         document.body.addEventListener('touchstart',
       (e) =>
       {
-          if (flg_fuse == 1 && flg_toggle == 0)
+          if (flg_fuse == 1 && cnt == 0)
         {
 
             if(bufferSource){bufferSource.stop(0);};
@@ -445,8 +445,7 @@ if(mobile)
          document.getElementById("cg1ent").setAttribute("animation-mixer","");
 　　　　　document.getElementById("cg1ent").setAttribute("animation",`enabled:true ; property: rotation;
   　　　　to: 0 ${cg1_rot.y*180/Math.PI +360} 0;  dur: 10000;loop: true; easinsg:easeInOutQuad`)
-         flg_toggle=1;
-        }else if (flg_fuse == 1 && flg_toggle == 1)
+        }else if (flg_fuse == 1 && cnt == 1)
         {
 
 
@@ -455,7 +454,6 @@ if(mobile)
           cnt=0;
          document.getElementById("cg1ent").removeAttribute('animation-mixer');
 　　　　　document.getElementById("cg1ent").setAttribute("animation","enabled:false")
-         flg_toggle=0;
         }
      });
 
