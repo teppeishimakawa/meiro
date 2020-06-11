@@ -508,7 +508,7 @@ render();
  <a-entity camera id="camera" look-controls="pointerLockEnabled: true;reverseTouchDrag:true" position="0 0.2 0">
    <!--a-entity camera id="camera" look-controls="enabled:false"-->
 
-    <a-entity cursor="fuse:true;fuse-timeout:500;maxDistance:30;" position="0 0 -0.1"
+    <a-entity cursor="fuse:true;fuse-timeout:500;maxDistance:30;" raycaster="far：20; interval：1000;" position="0 0 -0.1"
               geometry="primitive: ring; radiusInner: 0.002; radiusOuter: 0.003"
               material="color: gray; shader: flat"></a-entity>
   </a-entity>
