@@ -137,8 +137,8 @@ var isSP, ctx, xml, data;
 //var bufferSource;
 var cnt=0;
 
-if(mobile)
-{
+ if(mobile)
+ {
     // コンテキストを生成
     window.AudioContext = window.AudioContext || window.webkitAudioContext;
     ctx = new AudioContext();
@@ -163,7 +163,7 @@ if(mobile)
         );
     };
     xml.send();
-}
+ }
     //isSP = typeof window.ontouchstart !== 'undefined';
 ////////////////////////////////
 
@@ -580,8 +580,6 @@ render();
 
 <body class="a-body" >
 
-
-
 <!--user-select:none重要！ボタン文字が選択状態になってしまう。-->
 <div id="back" style='position: fixed; top: 85%; width:100%;text-align: center; z-index: 100;'>
     <button id="backBtn">
@@ -621,9 +619,8 @@ render();
 
 <a-entity id="maze" position="-4 1 -10" >
 
-
-<a-gltf-model id="cg1ent" class="collidable"  scale="0.01 0.01 0.01" position="1 -1 3" rotation="0 0 0" src="#cg1" pago-listener model-loader 
-animation__in="property: scale;
+<a-gltf-model id="cg1ent" class="collidable"  scale="0.01 0.01 0.01" position="1 -1 3" rotation="0 0 0" src="#cg1"
+ animation__in="property: scale;
                to: 0.03 0.03 0.03;
                dur: 100;
                startEvents: mouseenter"
@@ -631,13 +628,13 @@ animation__out="property: scale;
                to: 0.01 0.01 0.01;
                dur: 100;
                startEvents: mouseleave"
-static-body></a-gltf-model>
+static-body pago-listener model-loader></a-gltf-model>
 
 
 
 
-<a-gltf-model  id="cg2ent" class="collidable" scale="0.35 0.35 0.35" position="2 -1 4" rotation="0 0 0" src="#cg2" abo-listener model-loader 
-animation__in="property: scale;
+<a-gltf-model  id="cg2ent" class="collidable" scale="0.35 0.35 0.35" position="2 -1 4" rotation="0 0 0" src="#cg2"
+ animation__in="property: scale;
                to: 0.45 0.45 0.45;
                dur: 100;
                startEvents: mouseenter"
@@ -645,7 +642,7 @@ animation__out="property: scale;
                to: 0.35 0.35 0.35;
                dur: 100;
                startEvents: mouseleave"
-static-body></a-gltf-model>
+static-body abo-listener model-loader></a-gltf-model>
 
 
 <!--paddimaxngつけるために、textのwidthを決め打ちにするの重要!-->
