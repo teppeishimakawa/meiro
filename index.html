@@ -118,6 +118,9 @@ AFRAME.registerComponent('model-loader', {
 
 
 
+
+
+///////////////////////////////////////////////
 AFRAME.registerComponent('abo-listener',
 {
         init: function ()
@@ -466,6 +469,87 @@ if(mobile)
 
 
 
+
+
+
+
+
+
+
+/////////////////////////////////////
+
+AFRAME.registerComponent('duck-listener',
+{
+        init: function ()
+  {
+
+
+var flg_fuse=0;
+var flg_toggle=0;
+
+//////////audio再生高速化
+var isSP, ctx, xml, data;
+//var bufferSource;
+var cnt=0;
+
+
+
+      this.el.addEventListener('mouseenter',function(evt)
+      {
+      flg_fuse=1;
+      },false);
+
+      this.el.addEventListener('mouseleave',function(evt)
+      {
+      flg_fuse=0;
+      },false);
+
+
+
+if(!mobile)
+{
+    document.body.addEventListener('keydown',
+      (e) =>
+      {
+          if (event.key == " " && flg_fuse == 1)
+        {
+       document.getElementById('camera').setAttribute("look-controls","enabled",false);
+        }
+     });
+
+    document.getElementById('cancel').onclick=function()
+    {
+    document.getElementById('camera').setAttribute("look-controls","enabled",true);
+    }
+
+}
+
+//sp用
+
+if(mobile)
+{
+  console.log("mobile")
+        document.body.addEventListener('touchstart',
+      (e) =>
+      {
+          if (flg_fuse == 1)
+        {
+       document.getElementById('camera').setAttribute("look-controls","enabled",false);
+        }
+
+       document.getElementById('cancel').onclick=function()
+       {
+        document.getElementById('camera').setAttribute("look-controls","enabled",true);
+       }
+
+   //mobile
+   }
+    //init()
+  }
+
+});
+
+
 /*
 AFRAME.registerComponent('abo-listener',
 {
@@ -593,6 +677,12 @@ render();
         please wait a minute...
 </div>
 
+
+<div id="sub1" style='position: fixed; top: 20%; width:100%;text-align: center; z-index: 100;'>
+        <input type="number"/>
+        <button id="cancel">cancel</button>
+</div>
+
       <audio id="aboAud" src="./audio/1-18 Are You Gonna Go My Way.mp3" preload="auto"></audio>
       <audio id="twAud" src="./audio/Ancient_Beijing.mp3" preload="auto"></audio>
 
@@ -640,6 +730,18 @@ animation__in="property: scale;
                startEvents: mouseenter"
 animation__out="property: scale;
                to: 0.35 0.35 0.35;
+               dur: 100;
+               startEvents: mouseleave"
+static-body></a-entity>
+
+
+<a-entity id="cg3ent" class="collidable" gltf-model="url(./gltf/Duck.gltf)"  scale="0.1 0.1 0.1" position="1 -1 7" rotation="0 0 0"  duck-listener model-loader 
+animation__in="property: scale;
+               to: 0.2 0.2 0.2;
+               dur: 100;
+               startEvents: mouseenter"
+animation__out="property: scale;
+               to: 0.1 0.1 0.1;
                dur: 100;
                startEvents: mouseleave"
 static-body></a-entity>
