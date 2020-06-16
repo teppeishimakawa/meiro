@@ -862,9 +862,17 @@ function movePlayer()
  position = rig.getAttribute('position');
     rotation = rig.getAttribute('rotation');
 
+     if(rotation.y > 90)
+     {
+       position.z += -Math.cos((rotation.y - 90) * Math.PI / 180) * speed;
+       position.x += Math.sin((rotation.y - 90) * Math.PI / 180) * speed;
+       rig.setAttribute('position', position);
+     }else
+     {
        position.x += -Math.cos((rotation.y - 90) * Math.PI / 180) * speed;
        position.z += Math.sin((rotation.y - 90) * Math.PI / 180) * speed;
        rig.setAttribute('position', position);
+    }
 }
 
 
