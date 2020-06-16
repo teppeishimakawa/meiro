@@ -850,35 +850,30 @@ document.dispatchEvent( new KeyboardEvent( "keydown",{key: 40 })) ;
 */
 
 
-var speed;
+var speed=0;
 var rig = document.getElementById('rig');
 var position = rig.getAttribute('position');
-var rotation = rig.getAttribute('rotation');
+var rotation = document.getElementById('camera').getAttribute('rotation');
 
 
 
 function movePlayer()
 {
- position = rig.getAttribute('position');
-    rotation = rig.getAttribute('rotation');
+  　　　rotation = document.getElementById('camera').getAttribute('rotation');
+  　　　position = rig.getAttribute('position');
 
-     if(rotation.y > 90)
-     {
-       position.z += -Math.cos((rotation.y - 90) * Math.PI / 180) * speed;
-       position.x += Math.sin((rotation.y - 90) * Math.PI / 180) * speed;
-       rig.setAttribute('position', position);
-     }else
-     {
        position.x += -Math.cos((rotation.y - 90) * Math.PI / 180) * speed;
        position.z += Math.sin((rotation.y - 90) * Math.PI / 180) * speed;
        rig.setAttribute('position', position);
-    }
+
+       //console.log(document.getElementById('camera').getAttribute('rotation'));
 }
 
+var anime;
 
 function render()
 {
-    requestAnimationFrame(render);
+    anime=requestAnimationFrame(render);
     movePlayer();
 }
 
@@ -886,17 +881,19 @@ function render()
 
 document.getElementById("back").addEventListener("mousedown", (e)=>
 {
-speed = -0.01;
+speed= -0.01
 render();
-console.log(rig.getAttribute('position'));
+//console.log(rig.getAttribute('position'));
+
 },false);
 
 
 document.getElementById("back").addEventListener("touchstart", (e)=>
 {
-speed = -0.01;
+speed= -0.01
 render();
-console.log(rig.getAttribute('position'));
+//console.log(rig.getAttribute('position'));
+
 },false);
 
 
@@ -904,17 +901,17 @@ console.log(rig.getAttribute('position'));
 document.getElementById("back").addEventListener("mouseup", (e)=>
 {
   speed = 0;
-  //cancelAnimationFrame(render);
+  cancelAnimationFrame(anime);
 
-  console.log(rig.getAttribute('position'));
+  //console.log(rig.getAttribute('position'));
 },false);
 
 document.getElementById("back").addEventListener("touchend", (e)=>
 {
   speed = 0;
-  //cancelAnimationFrame(render);
+  cancelAnimationFrame(anime);
 
-  console.log(rig.getAttribute('position'));
+  //console.log(rig.getAttribute('position'));
 },false);
 
 
