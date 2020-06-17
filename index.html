@@ -104,7 +104,7 @@ AFRAME.registerComponent('model-loader', {
     this.el.addEventListener('model-loaded', function () {
       model_cnt++;
       console.log(model_cnt)
-      if(model_cnt == 2)
+      if(model_cnt == 3)
       {
         document.getElementById("myScene").setAttribute('visible','true');
         document.getElementById("wait").style.display="none";
@@ -682,7 +682,7 @@ render();
 </div>
 
 
-<div id="score" style='position: fixed; ; top: 5%; left:0%; width:200px;text-align: center; z-index: 200;'></div>
+<div id="score" style='position: fixed; ; top: 3%; left:3%; width:200px;text-align: left; z-index: 200;'></div>
 
 
 <!--!!!!!cssでの計算はcalc()-->
@@ -806,8 +806,7 @@ static-body></a-entity>
 
 <!--paddingつけるために、textのwidthを決め打ちにするの重要!-->
 <a-entity id="text1" geometry="primitive: plane;width: 1.8; height: 1.1;"
-  material="color: black;opacity:0.3"  text="wrapCount:65;align:left;width:1.65;height:1;value:Ultimo Cinco (1993)：Mark Justiniani \n \n A witty parody of Leonardo da Vinci's The Last Supper Mark Justiniani's Ultimo Cinco depicts a gang of gamblers eagerly awaiting the fall of a die and the outcome of a bet. The central figure has cast the die so high in the air that it is out of sight,and in so doing, he assumes apose of benediction,seemingly Christlike with his eyes averted upwards and hence, skywards. 
-\n Most of the gathered look up at the direction of his hands, save for a sly bestacled rogue who pinches a 500 peso bill from the bettor's table, unknown to his peers. The gesture of surprise that is registered at da Vinci's Last Supper (as a result of Chrits's announement of his impending betrayal) is appropriated by Justiniani as a gesture of anticipation, humorously transposed here in another context. Justiniani painted this canvas for his first one-man show, Kasimanwa in 1993 at the Hiraya Gallery in Manila. \n \n The work forms part of a series that describes episodes of the townsfolk (Kasimanwa) of Victorias ,Negros Occidental in visual anedotes of everyday life.;" visible="false" scale="0.6 0.6 0.6" position="1.9 0.1 4" rotation="30 0 0" static-body click-drag></a-entity>
+  material="color: black;opacity:0.3"  text="wrapCount:35;align:left;width:1.65;height:1;value:Ultimo Cinco (1993)：Mark Justiniani \n \n A witty parody of Leonardo da Vinci's The Last Supper Mark Justiniani's Ultimo Cinco depicts a gang of gamblers eagerly awaiting the fall of a die and the outcome of a bet. The central figure has cast the die so high in the air that it is out of sight,and in so doing, he assumes apose of benediction,seemingly Christlike with his eyes averted upwards and hence, skywards. ;" visible="false" scale="0.6 0.6 0.6" position="1.9 0.1 4" rotation="30 0 0" static-body click-drag></a-entity>
 <!--text="value: Hello World;align:center"-->
 <!--
 aileronsemibold 
