@@ -78,14 +78,17 @@ const mobile = isMobile();
 var model_cnt=0;
 var bufferSource;
 
+var PassSec;   // 秒数カウント用変数
+var PassageID;
+var msg;
 
 
-　　　　　var PassSec;   // 秒数カウント用変数
+　　　　　
 　　　　　// 繰り返し処理の中身
 　　　　　function showPassage()
 　　　　　{
    　　　 PassSec++;   // カウントアップ
-   　　　 var msg = Math.floor(PassSec/100) + ":" +  ( '00' + PassSec%100).slice( -2 );   // 表示文作成
+   　　　 msg = Math.floor(PassSec/100) + ":" +  ( '00' + PassSec%100).slice( -2 );   // 表示文作成
    　　   document.getElementById("time").innerHTML = msg;   // 表示更新
 　　　　　}
 　　　　　　// 繰り返し処理の開始
@@ -114,14 +117,12 @@ AFRAME.registerComponent('collider-check',
     {
         this.el.addEventListener('raycaster-intersection', function ()
         {
-            isIntersect = true;
-            stopShowing()
-            document.getElementById("time").style.color="red"
+
         });
-        this.el.addEventListener('raycaster-intersection-cleared', function ()
+        /*this.el.addEventListener('raycaster-intersection-cleared', function ()
         {
             isIntersect = false;
-        });
+        });*/
     }
 });
 
@@ -798,7 +799,7 @@ render();
 <a-entity id="rig" movement-controls="speed:0.05" kinematic-body="radius: 0.2" position="0 0 0" >
  <a-entity camera id="camera" look-controls="pointerLockEnabled: true;reverseTouchDrag:true" position="0 0.4 0"  >
 
-    <a-entity cursor="fuse:true;fuse-timeout:500;" raycaster="far: 0.1; interval: 100; objects: .collidable;" collider-check position="0 0 -0.5"
+    <a-entity cursor="fuse:true;fuse-timeout:500;" raycaster="far: 5; interval: 1000; objects: .collidable;" collider-check position="0 0 -0.5"
               geometry="primitive: ring; radiusInner: 0.006; radiusOuter: 0.009"
               material="color: gray; shader: flat"></a-entity>
   </a-entity>
@@ -807,7 +808,7 @@ render();
 
 <a-entity id="maze" position="-4 1 -10" >
 <!--何故かurlでgltf読まないとcameraが床突き抜けて落下してしまうためここで読み込み-->
-<a-entity id="cg1ent" gltf-model="url(./gltf/Pagoda.glb)" scale="0.01 0.01 0.01" position="1 -1 3" rotation="0 0 0" pago-listener model-loader
+<a-entity id="cg1ent" class="collidable" gltf-model="url(./gltf/Pagoda.glb)" scale="0.01 0.01 0.01" position="1 -1 3" rotation="0 0 0" pago-listener model-loader
 animation__in="property: scale;
                to: 0.03 0.03 0.03;
                dur: 100;
@@ -819,7 +820,7 @@ animation__out="property: scale;
 static-body></a-entity>
 
 
-<a-entity id="cg2ent" gltf-model="url(./gltf/BrainStem.gltf)"  scale="0.35 0.35 0.35" position="2 -1 4" rotation="0 0 0"  abo-listener model-loader 
+<a-entity id="cg2ent" class="collidable" gltf-model="url(./gltf/BrainStem.gltf)"  scale="0.35 0.35 0.35" position="2 -1 4" rotation="0 0 0"  abo-listener model-loader 
 animation__in="property: scale;
                to: 0.45 0.45 0.45;
                dur: 100;
@@ -831,7 +832,7 @@ animation__out="property: scale;
 static-body></a-entity>
 
 
-<a-entity id="cg3ent" gltf-model="url(./gltf/Duck.gltf)"  scale="0.1 0.1 0.1" position="1 -1 7" rotation="0 0 0"  duck-listener model-loader 
+<a-entity id="cg3ent" class="collidable" gltf-model="url(./gltf/Duck.gltf)"  scale="0.1 0.1 0.1" position="1 -1 7" rotation="0 0 0"  duck-listener model-loader 
 animation__in="property: scale;
                to: 0.2 0.2 0.2;
                dur: 100;
@@ -846,8 +847,12 @@ static-body></a-entity>
 <a-entity id="text1" geometry="primitive: plane;width: 1.8; height: 1.1;"
   material="color: black;opacity:0.3"  text="wrapCount:35;align:left;width:1.65;height:1;value:Ultimo Cinco (1993)：Mark Justiniani \n \n A witty parody of Leonardo da Vinci's The Last Supper Mark Justiniani's Ultimo Cinco depicts a gang of gamblers eagerly awaiting the fall of a die and the outcome of a bet. The central figure has cast the die so high in the air that it is out of sight,and in so doing, he assumes apose of benediction,seemingly Christlike with his eyes averted upwards and hence, skywards. ;" visible="false" scale="0.6 0.6 0.6" position="1.9 0.1 4" rotation="30 0 0" static-body></a-entity>
 
-  <a-entity id="text2" class="collidable" geometry="primitive: plane;width: 1.8; height: 1.3;"
+  <a-entity id="text2" geometry="primitive: plane;width: 1.8; height: 1.3;"
   material="color: black;opacity:0.3"  text="wrapCount:5;align:center;width:1.65;height:0.8;value:goal;" visible="true" scale="0.6 0.6 0.6" position="1 -0.5 0.1" rotation="0 0 0" static-body ></a-entity>
+
+
+    <a-entity id="text3" geometry="primitive: plane;width: 1; height: 1;"
+    text="wrapCount:5;align:center;width:0.8;height:0.8;value:|||| \n \n  |||\n \n  |||||" material="color: black;opacity:0" visible="true" scale="0.6 0.6 0.6" position="5 -0.3 1" rotation="0 90 0" static-body ></a-entity>
 <!--text="value: Hello World;align:center"-->
 <!--
 aileronsemibold
@@ -945,6 +950,7 @@ function movePlayer()
        position.x += -Math.cos((rotation.y - 90) * Math.PI / 180) * speed;
        position.z += Math.sin((rotation.y - 90) * Math.PI / 180) * speed;
        rig.setAttribute('position', position);
+
 
        //console.log(document.getElementById('camera').getAttribute('rotation'));
 }
@@ -1050,6 +1056,40 @@ var num3=document.getElementById("num3").value;
   }
 
 }
+
+
+
+function goalChk()
+{
+var pos=document.getElementById("rig").getAttribute("position")
+
+console.log(pos.x);
+
+//
+            if((pos.x > 0.5 -4) && (pos.x < 1.5 -4) && (pos.z > -0.5 -10) && (pos.z < 0.5 -10))
+            {
+            stopShowing()
+            document.getElementById("time").style.color="red"
+            if(scoreFlg == 1)
+              {
+                msgArr=msg.split(":");
+                document.getElementById("time").innerHTML =  msgArr[0] - 60 + ":" + msgArr[1];
+              }
+            }
+}
+
+
+var anime2;
+
+function render2()
+{
+    anime2=requestAnimationFrame(render2);
+    goalChk();
+}
+
+render2();
+
+
 /*
 function movePlayer()
 {
